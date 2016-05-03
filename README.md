@@ -15,10 +15,10 @@ Alternatively, you could also use Space/Time's [Ansible playbooks](https://githu
 - Node.js
 
 ## Install databases
-
-  - Elasticsearch
-  - Neo4j
-  - PostgreSQL with PostGIS
+- Install databases:
+  - [Elasticsearch](https://www.elastic.co/downloads/elasticsearch)
+  - [Neo4j](http://neo4j.com/download) or `brew install neo4j`
+  - [PostgreSQL](http://www.postgresql.org/download/) with [PostGIS](http://postgis.net/install/). Enable PostGIS in your database by running this query: `CREATE EXTENSION postgis;`
 
 By default, Space/Time uses the default ports, users and passwords for all databases. To override this, edit your configuration file.
 
