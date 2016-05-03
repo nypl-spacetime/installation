@@ -22,14 +22,63 @@ Alternatively, you could also use Space/Time's [Ansible playbooks](https://githu
 
 By default, Space/Time uses the default ports, users and passwords for all databases. To override this, edit your configuration file.
 
-## configuration
+## Configuration
+
+For Space/Time to run, `config.yml` needs to hold a minimum of configuration options:
 
 ```yml
 api:
-  dataDir: /path/to/spacetime/data
+  dataDir: /path/to/spacetime/data/api
   admin:
     name: spacetime
     password: password
+
+etl:
+  moduleDir: /path/to/spacetime/etl-modules
+  modulePrefix: etl-
+  outputDir: /path/to/spacetime/data/etl
+  modules:
+    geonames:
+      extraUris:
+      filters:
+        - countryCode: US
+          admin1Code: NY
+        - countryCode: US
+          admin1Code: NJ
+      relations:
+        liesIn: hg:liesIn
+      types:
+        PCLI: hg:Country
+        PPLA2: hg:Borough
+        ADM1: hg:State
+        ADM2: hg:County
+        PPLX: hg:Neighbourhood
+        PPL: hg:Place
+        CNL: hg:Water
+
+    tgn:
+      parents:
+        - tgn:7007568
+      relations:
+        liesIn: hg:liesIn
+        equivalence: hg:sameAs
+      types:
+        nations: hg:Country
+        area: hg:Area
+        canals: hg:Water
+        channels: hg:Water
+        general regions: hg:Region
+        inhabited places: hg:Place
+        provinces: hg:Province
+        second level subdivisions: hg:Region
+        neighborhoods: hg:Neighbourhood
+        counties: hg:County
+        boroughs: hg:Borough
+
+import:
+  dirs:
+    - /path/to/spacetime/data/etl/transform
+    - /path/to/spacetime/data/etl/infer
 ```
 
 ## Services
